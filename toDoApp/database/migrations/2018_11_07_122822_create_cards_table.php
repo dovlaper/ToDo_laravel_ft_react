@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class CreateCardsTable extends Migration
 {
@@ -21,6 +23,7 @@ class CreateCardsTable extends Migration
             $table->integer('user_id');
             $table->boolean('done');
             $table->boolean('priority');
+            $table->softDeletes();
         });
     }
 

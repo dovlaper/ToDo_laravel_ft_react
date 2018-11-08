@@ -6,6 +6,8 @@ use App\Model\Card;
 use App\Http\Requests\CreateCardRequest;
 use App\Http\Requests\UpdateCardRequest;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Http\Response;
+
 
 class CardsController extends Controller
 {
@@ -16,9 +18,9 @@ class CardsController extends Controller
      */
     public function index()
     {
-        $cards = Card::where('user_id',auth()->user()->id )->get();
+        $cards = Card::where('user_id', auth()->user()->id)->get();
 
-        return response($cards,200);
+        return response($cards, Response::HTTP_OK);
     }
 
     /**
@@ -37,7 +39,7 @@ class CardsController extends Controller
             'user_id' => auth()->user()->id
         ]);
 
-        return response($card, 200);
+        return response($card, Response::HTTP_OK);
     }
 
     /**
@@ -47,29 +49,27 @@ class CardsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateCardRequest $request, Card $card )
+    public function update(UpdateCardRequest $request, Card $card)
     {
-        if($card->user_id == auth()->user()->id)
-        {
+        if($card->user_id == auth()->user()->id) {
             $card->update($request->all());
 
-            return response($card , 200);
+            return response($card, Response::HTTP_OK);
         }
-        else
-        {
+        else {
             return response($card, 403);
         }
     }
 
-    public function getCard(Card $card){
-        if($card->user_id == auth()->user()->id)
-        {
-            return response($card,200);
+    public function getCard(Card $card)
+    {
+        if($card->user_id == auth()->user()->id) {
+            return response($card, Response::HTTP_OK);
         }
-        else
-        {
+        else {
             return response($card, 403);
-        }    }
+        }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -79,14 +79,12 @@ class CardsController extends Controller
      */
     public function destroy(Card $card)
     {
-        if($card->user_id == auth()->user()->id)
-        {
+        if($card->user_id == auth()->user()->id) {
             $card->delete();
 
-            return response($card,200);
+            return response($card, Response::HTTP_OK);
         }
-        else
-        {
+        else {
             return response($card, 403);
         }
     }
