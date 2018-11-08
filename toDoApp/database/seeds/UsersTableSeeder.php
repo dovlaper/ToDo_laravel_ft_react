@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-
+use App\Model\Card;
 
 
 class UsersTableSeeder extends Seeder
