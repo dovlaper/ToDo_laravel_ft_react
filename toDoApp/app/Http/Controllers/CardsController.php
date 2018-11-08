@@ -57,7 +57,7 @@ class CardsController extends Controller
             return response($card, Response::HTTP_OK);
         }
         else {
-            return response($card, 403);
+            return response($card, HTTP_FORBIDDEN);
         }
     }
 
@@ -67,7 +67,7 @@ class CardsController extends Controller
             return response($card, Response::HTTP_OK);
         }
         else {
-            return response($card, 403);
+            return response($card, HTTP_FORBIDDEN);
         }
     }
 
@@ -85,7 +85,7 @@ class CardsController extends Controller
             return response($card, Response::HTTP_OK);
         }
         else {
-            return response($card, 403);
+            return response($card, HTTP_FORBIDDEN);
         }
     }
 }
