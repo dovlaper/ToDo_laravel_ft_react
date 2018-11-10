@@ -20,10 +20,14 @@ class CreateCardsTable extends Migration
             $table->timestamps();
             $table->string('title');
             $table->string('content');
-            $table->integer('user_id');
+            $table->unsignedInteger('user_id');
             $table->boolean('done');
             $table->boolean('priority');
             $table->softDeletes();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

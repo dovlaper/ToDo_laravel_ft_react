@@ -14,13 +14,13 @@ class Card extends Model
     {
         return $this->belongsTo(User::class);
     }
-        /**
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'title', 'content','user_id','done','priority'
+        'title', 'content', 'user_id', 'done', 'priority'
     ];
 
 }

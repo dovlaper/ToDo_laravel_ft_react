@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Model\Card;
+use App\Model\User;
 
 
 class UsersTableSeeder extends Seeder
@@ -13,12 +14,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        User::create([
             'name' => 'vlada',
             'email' => 'vlada@gmail.com',
             'password' => bcrypt('123456'),
         ]);
-        DB::table('users')->insert([
+        User::create([
             'name' => 'elena',
             'email' => 'elena@gmail.com',
             'password' => bcrypt('123455'),
@@ -28,11 +29,11 @@ class UsersTableSeeder extends Seeder
 
         for ($i = 0; $i < 10; $i++) {
             Card::create([
-                'title' =>$faker->sentence,
+                'title' => $faker->sentence,
                 'content' => $faker->sentence,
-                'priority' => $faker->randomElement($array = array (true, false)),
-                'done' => $faker->randomElement($array = array (true, false)),
-                'user_id' => $faker->randomElement($array = array(1, 2)),
+                'priority' => $faker->randomElement([true, false]),
+                'done' => $faker->randomElement([true, false]),
+                'user_id' => $faker->randomElement([1, 2]),
             ]);
         }
 

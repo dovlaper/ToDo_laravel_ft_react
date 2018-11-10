@@ -18,9 +18,7 @@ class CardsController extends Controller
      */
     public function index()
     {
-        $cards = Card::where('user_id', auth()->user()->id)->get();
-
-        return response($cards, Response::HTTP_OK);
+        return auth()->user()->cards;
     }
 
     /**
@@ -39,7 +37,7 @@ class CardsController extends Controller
             'user_id' => auth()->user()->id
         ]);
 
-        return response($card, Response::HTTP_OK);
+        return response($card, Response::HTTP_CREATED);
     }
 
     /**
@@ -51,24 +49,17 @@ class CardsController extends Controller
      */
     public function update(UpdateCardRequest $request, Card $card)
     {
-        if($card->user_id == auth()->user()->id) {
-            $card->update($request->all());
+        $card->update($request->only([
+            'title',
+            'content'
+        ]));
 
-            return response($card, Response::HTTP_OK);
-        }
-        else {
-            return response($card, Response::HTTP_FORBIDDEN);
-        }
+        return $card;
     }
 
     public function getCard(Card $card)
     {
-        if($card->user_id == auth()->user()->id) {
-            return response($card, Response::HTTP_OK);
-        }
-        else {
-            return response($card, Response::HTTP_FORBIDDEN);
-        }
+        return $card;
     }
 
     /**
@@ -79,13 +70,8 @@ class CardsController extends Controller
      */
     public function destroy(Card $card)
     {
-        if($card->user_id == auth()->user()->id) {
-            $card->delete();
+        $card->delete();
 
-            return response($card, Response::HTTP_OK);
-        }
-        else {
-            return response($card, Response::HTTP_FORBIDDEN);
-        }
+        return response($card, Response::HTTP_OK);
     }
 }
